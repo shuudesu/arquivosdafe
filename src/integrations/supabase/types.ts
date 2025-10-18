@@ -53,6 +53,38 @@ export type Database = {
         }
         Relationships: []
       }
+      download_logs: {
+        Row: {
+          book_id: string
+          downloaded_at: string
+          id: string
+          ip_address: string | null
+          user_id: string
+        }
+        Insert: {
+          book_id: string
+          downloaded_at?: string
+          id?: string
+          ip_address?: string | null
+          user_id: string
+        }
+        Update: {
+          book_id?: string
+          downloaded_at?: string
+          id?: string
+          ip_address?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "download_logs_book_id_fkey"
+            columns: ["book_id"]
+            isOneToOne: false
+            referencedRelation: "books"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       invite_links: {
         Row: {
           created_at: string
@@ -133,6 +165,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      check_download_rate_limit: {
+        Args: { _book_id: string; _user_id: string }
+        Returns: boolean
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]

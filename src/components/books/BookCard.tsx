@@ -16,6 +16,29 @@ interface BookCardProps {
 export const BookCard = ({ id, title, author, description, filePath, coverUrl }: BookCardProps) => {
   const handleDownload = async () => {
     try {
+      // Check rate limit
+      const { data: user } = await supabase.auth.getUser();
+      if (!user.user) {
+        toast.error("Você precisa estar autenticado");
+        return;
+      }
+
+      const { data: allowed, error: rateLimitError } = await supabase.rpc(
+        "check_download_rate_limit",
+        {
+          _user_id: user.user.id,
+          _book_id: id,
+        }
+      );
+
+      if (rateLimitError) throw rateLimitError;
+
+      if (!allowed) {
+        toast.error("Limite de downloads excedido. Tente novamente em 1 hora.");
+        return;
+      }
+
+      // Proceed with download
       const { data, error } = await supabase.storage
         .from("pdfs")
         .download(filePath);
