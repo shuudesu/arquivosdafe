@@ -1,73 +1,63 @@
-# Welcome to your Lovable project
+✨ Códice Sagrado - Os Arquivos da Fé ✨
+Uma plataforma moderna e minimalista dedicada à exploração, estudo e conexão com a sabedoria contida em textos sagrados. "Os Arquivos da Fé" é um projeto que une design, tecnologia e espiritualidade para oferecer uma experiência de aprendizado única.
 
-## Project info
+📖 Sobre o Projeto
+Este projeto foi criado para ser um refúgio digital para estudantes, pesquisadores e curiosos em busca de conhecimento sagrado. Em um mundo de informações dispersas, o "Códice Sagrado" oferece um ambiente focado e limpo, onde a tecnologia serve como uma ponte para a sabedoria ancestral, facilitando o estudo e a reflexão.
 
-**URL**: https://lovable.dev/projects/bc5edd6f-abf3-42b8-9309-ebe5f2c137cc
+🎯 Recursos Principais (Exemplos)
+📚 Biblioteca Digital: Acesse uma coleção curada de textos e documentos.
 
-## How can I edit this code?
+🔍 Busca Avançada: Encontre passagens e conceitos específicos com um sistema de busca inteligente.
 
-There are several ways of editing your application.
+🎨 Interface Limpa e Intuitiva: Uma experiência de usuário projetada para focar no conteúdo, sem distrações.
 
-**Use Lovable**
+📱 Design Responsivo: Estude e explore em qualquer dispositivo, seja no desktop, tablet ou celular.
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/bc5edd6f-abf3-42b8-9309-ebe5f2c137cc) and start prompting.
+💻 Tecnologias Utilizadas
+Este projeto foi construído com um conjunto de tecnologias modernas para garantir uma experiência rápida, robusta e escalável:
 
-Changes made via Lovable will be committed automatically to this repo.
+Vite: Um ambiente de desenvolvimento front-end extremamente rápido.
 
-**Use your preferred IDE**
+TypeScript: JavaScript com tipagem estática para um código mais seguro e manutenível.
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+React: Uma biblioteca JavaScript para construir interfaces de usuário dinâmicas e reativas.
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+shadcn-ui: Componentes de UI lindamente projetados que são acessíveis e customizáveis.
 
-Follow these steps:
+Tailwind CSS: Um framework CSS "utility-first" para criar designs customizados rapidamente.
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+🚀 Como Começar (Desenvolvimento Local)
+Se você deseja executar este projeto localmente para desenvolvimento ou contribuição, siga os passos abaixo.
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+Pré-requisitos:
 
-# Step 3: Install the necessary dependencies.
+Node.js & npm (recomenda-se a instalação via nvm)
+
+Passos:
+
+Clone o repositório:
+
+Bash
+
+git clone <URL_DO_SEU_REPOSITÓRIO_GIT>
+Navegue até o diretório do projeto:
+
+Bash
+
+cd <NOME_DO_SEU_PROJETO>
+Instale as dependências:
+
+Bash
+
 npm i
+Inicie o servidor de desenvolvimento:
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+Bash
+
 npm run dev
-```
+Isso iniciará um servidor local com recarregamento automático para uma visualização instantânea das suas alterações.
 
-**Edit a file directly in GitHub**
+☁️ Publicação (Deploy)
+Este projeto está configurado para uma publicação simplificada através da plataforma Lovable. Para publicar, acesse a página do projeto e vá em Share -> Publish.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/bc5edd6f-abf3-42b8-9309-ebe5f2c137cc) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+Você também pode conectar um domínio customizado nas configurações do projeto em Project > Settings > Domains.
