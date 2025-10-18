@@ -33,7 +33,6 @@ export const BookCard = ({ id, title, author, description, filePath, coverUrl }:
 
       toast.success("Download iniciado!");
     } catch (error) {
-      console.error("Download error:", error);
       toast.error("Erro ao baixar o arquivo");
     }
   };

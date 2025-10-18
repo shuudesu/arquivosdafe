@@ -92,7 +92,7 @@ export default function Auth() {
           });
 
           if (markError) {
-            console.error("Erro ao marcar convite como usado:", markError);
+            // Error marking invite as used - non-critical, user account still created
           }
 
           toast.success("Cadastro realizado com sucesso!");

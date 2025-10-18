@@ -111,7 +111,6 @@ export default function Admin() {
       setDescription("");
       setPdfFile(null);
     } catch (error: any) {
-      console.error("Upload error:", error);
       toast.error("Erro ao fazer upload");
     } finally {
       setUploading(false);
