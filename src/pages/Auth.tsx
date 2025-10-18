@@ -8,6 +8,25 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { useAuth } from "@/components/auth/AuthProvider";
+import { z } from "zod";
+
+const loginSchema = z.object({
+  email: z.string().email("Email inválido").max(255, "Email muito longo"),
+  password: z.string().min(1, "Senha é obrigatória"),
+});
+
+const signUpSchema = z.object({
+  email: z.string().email("Email inválido").max(255, "Email muito longo"),
+  password: z
+    .string()
+    .min(8, "Senha deve ter no mínimo 8 caracteres")
+    .max(100, "Senha muito longa")
+    .regex(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
+      "Senha deve conter maiúsculas, minúsculas e números"
+    ),
+  fullName: z.string().trim().min(2, "Nome muito curto").max(100, "Nome muito longo"),
+});
 
 export default function Auth() {
   const [searchParams] = useSearchParams();
@@ -57,9 +76,12 @@ export default function Auth() {
 
     try {
       if (isLogin) {
+        // Validate login inputs
+        const validatedData = loginSchema.parse({ email, password });
+
         const { error } = await supabase.auth.signInWithPassword({
-          email,
-          password,
+          email: validatedData.email,
+          password: validatedData.password,
         });
 
         if (error) throw error;
@@ -71,14 +93,17 @@ export default function Auth() {
           return;
         }
 
+        // Validate signup inputs
+        const validatedData = signUpSchema.parse({ email, password, fullName });
+
         const redirectUrl = `${window.location.origin}/`;
         const { data: authData, error: signUpError } = await supabase.auth.signUp({
-          email,
-          password,
+          email: validatedData.email,
+          password: validatedData.password,
           options: {
             emailRedirectTo: redirectUrl,
             data: {
-              full_name: fullName,
+              full_name: validatedData.fullName,
             },
           },
         });
@@ -100,7 +125,11 @@ export default function Auth() {
         }
       }
     } catch (error: any) {
-      toast.error(error.message || "Erro ao processar");
+      if (error instanceof z.ZodError) {
+        toast.error(error.errors[0].message);
+      } else {
+        toast.error(error.message || "Erro ao processar");
+      }
     } finally {
       setLoading(false);
     }

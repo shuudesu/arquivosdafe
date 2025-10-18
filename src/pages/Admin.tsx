@@ -11,6 +11,15 @@ import { Textarea } from "@/components/ui/textarea";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { Copy, Link2, Upload } from "lucide-react";
+import { z } from "zod";
+
+const bookUploadSchema = z.object({
+  title: z.string().trim().min(1, "Título é obrigatório").max(200, "Título muito longo"),
+  author: z.string().trim().max(100, "Nome do autor muito longo").optional(),
+  description: z.string().trim().max(2000, "Descrição muito longa").optional(),
+});
+
+const MAX_PDF_SIZE = 50 * 1024 * 1024; // 50MB
 
 export default function Admin() {
   const { user, isAdmin, loading: authLoading } = useAuth();
@@ -78,14 +87,37 @@ export default function Admin() {
 
   const handleUploadBook = async (e: React.FormEvent) => {
     e.preventDefault();
+    
     if (!pdfFile) {
       toast.error("Selecione um arquivo PDF");
       return;
     }
 
+    // Validate file type and size
+    if (pdfFile.type !== "application/pdf") {
+      toast.error("Apenas arquivos PDF são permitidos");
+      return;
+    }
+
+    if (pdfFile.size > MAX_PDF_SIZE) {
+      toast.error("Arquivo PDF muito grande (máximo 50MB)");
+      return;
+    }
+
     setUploading(true);
+    
     try {
-      const fileName = `${Date.now()}-${pdfFile.name}`;
+      // Validate book metadata
+      const validatedData = bookUploadSchema.parse({
+        title,
+        author: author || undefined,
+        description: description || undefined,
+      });
+
+      // Use UUID-based filename for security
+      const fileExtension = pdfFile.name.split(".").pop();
+      const fileName = `${crypto.randomUUID()}.${fileExtension}`;
+      
       const { error: uploadError } = await supabase.storage
         .from("pdfs")
         .upload(fileName, pdfFile);
@@ -95,9 +127,9 @@ export default function Admin() {
       const { error: insertError } = await supabase
         .from("books")
         .insert({
-          title,
-          author: author || null,
-          description: description || null,
+          title: validatedData.title,
+          author: validatedData.author || null,
+          description: validatedData.description || null,
           file_path: fileName,
           file_size: pdfFile.size,
           uploaded_by: user!.id,
@@ -111,7 +143,11 @@ export default function Admin() {
       setDescription("");
       setPdfFile(null);
     } catch (error: any) {
-      toast.error("Erro ao fazer upload");
+      if (error instanceof z.ZodError) {
+        toast.error(error.errors[0].message);
+      } else {
+        toast.error("Erro ao fazer upload");
+      }
     } finally {
       setUploading(false);
     }
