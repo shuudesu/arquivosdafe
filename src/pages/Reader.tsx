@@ -55,9 +55,9 @@ export default function Reader() {
       if (bookError) throw bookError;
       setBook(bookData);
 
-      // Check rate limit
+      // Check read rate limit (100 views per hour)
       const { data: rateLimitOk, error: rateLimitError } = await supabase.rpc(
-        "check_download_rate_limit",
+        "check_read_rate_limit",
         {
           _user_id: user!.id,
           _book_id: bookId,
