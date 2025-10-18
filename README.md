@@ -1,63 +1,141 @@
-✨ Códice Sagrado - Os Arquivos da Fé ✨
-Uma plataforma moderna e minimalista dedicada à exploração, estudo e conexão com a sabedoria contida em textos sagrados. "Os Arquivos da Fé" é um projeto que une design, tecnologia e espiritualidade para oferecer uma experiência de aprendizado única.
+# ✨ Códice Sagrado — Os Arquivos da Fé ✨
 
-📖 Sobre o Projeto
-Este projeto foi criado para ser um refúgio digital para estudantes, pesquisadores e curiosos em busca de conhecimento sagrado. Em um mundo de informações dispersas, o "Códice Sagrado" oferece um ambiente focado e limpo, onde a tecnologia serve como uma ponte para a sabedoria ancestral, facilitando o estudo e a reflexão.
+Uma plataforma moderna e minimalista para a exploração, estudo e conexão com a sabedoria contida em textos sagrados. Este repositório contém o front-end do projeto — pensado para ser acessível, rápido e fácil de estender.
 
-🎯 Recursos Principais (Exemplos)
-📚 Biblioteca Digital: Acesse uma coleção curada de textos e documentos.
+## Índice
+- [Visão Geral](#visão-geral)
+- [Demonstração](#demonstração)
+- [Recursos Principais](#recursos-principais)
+- [Tecnologias](#tecnologias)
+- [Pré-requisitos](#pré-requisitos)
+- [Instalação e Desenvolvimento Local](#instalação-e-desenvolvimento-local)
+- [Build e Deploy](#build-e-deploy)
+- [Configuração (env)](#configuração-env)
+- [Contribuindo](#contribuindo)
+- [Boas práticas e Acessibilidade](#boas-práticas-e-acessibilidade)
+- [Roadmap](#roadmap)
+- [Licença e Contato](#licença-e-contato)
 
-🔍 Busca Avançada: Encontre passagens e conceitos específicos com um sistema de busca inteligente.
+---
 
-🎨 Interface Limpa e Intuitiva: Uma experiência de usuário projetada para focar no conteúdo, sem distrações.
+## Visão Geral
+O objetivo do "Códice Sagrado" é centralizar textos sagrados, comentários e recursos de estudo em uma interface limpa. Queremos tornar o conteúdo fácil de localizar, comparar e anotar, mantendo respeito às tradições e licenças dos textos.
 
-📱 Design Responsivo: Estude e explore em qualquer dispositivo, seja no desktop, tablet ou celular.
+## Demonstração
+(Coloque aqui o link para a demo hospedada, por exemplo: https://seu-projeto.lovable.app ou https://your-domain.com)
 
-💻 Tecnologias Utilizadas
-Este projeto foi construído com um conjunto de tecnologias modernas para garantir uma experiência rápida, robusta e escalável:
+> Se ainda não tiver uma demo pública, adicione a URL após o deploy.
 
-Vite: Um ambiente de desenvolvimento front-end extremamente rápido.
+## Recursos Principais
+- Biblioteca digital com organização por fonte, título e tags
+- Busca avançada por palavras-chave, frases e conceitos
+- Visualização de texto com leitura focada (modo noturno, ajuste de fonte)
+- Anotações pessoais e destaques (localmente ou vinculadas a conta)
+- Design responsivo para desktop, tablet e celular
 
-TypeScript: JavaScript com tipagem estática para um código mais seguro e manutenível.
+## Tecnologias
+- Vite
+- TypeScript
+- React
+- shadcn-ui
+- Tailwind CSS
 
-React: Uma biblioteca JavaScript para construir interfaces de usuário dinâmicas e reativas.
+(Adicione badges de build, npm, licence quando disponíveis)
 
-shadcn-ui: Componentes de UI lindamente projetados que são acessíveis e customizáveis.
+## Pré-requisitos
+- Node.js (recomenda-se usar nvm)
+- npm ou yarn
 
-Tailwind CSS: Um framework CSS "utility-first" para criar designs customizados rapidamente.
+## Instalação e Desenvolvimento Local
+1. Clone o repositório:
+   ```
+   git clone https://github.com/shuudesu/arquivosdafe.git
+   ```
+2. Entre no diretório do projeto:
+   ```
+   cd arquivosdafe
+   ```
+3. Instale dependências:
+   ```
+   npm install
+   # ou
+   yarn
+   ```
+4. Inicie o servidor de desenvolvimento:
+   ```
+   npm run dev
+   # ou
+   yarn dev
+   ```
+5. Abra http://localhost:5173 (ou a porta indicada) no seu navegador.
 
-🚀 Como Começar (Desenvolvimento Local)
-Se você deseja executar este projeto localmente para desenvolvimento ou contribuição, siga os passos abaixo.
+## Build e Deploy
+- Para gerar uma versão de produção:
+  ```
+  npm run build
+  # ou
+  yarn build
+  ```
+- Para servir localmente a build:
+  ```
+  npm run preview
+  # ou
+  yarn preview
+  ```
 
-Pré-requisitos:
+Deploy sugerido:
+- Lovable (conforme indicado): use Share → Publish no painel do projeto.
+- Alternativas: Vercel, Netlify, Cloudflare Pages — todas suportam projetos Vite/React com build estática.
 
-Node.js & npm (recomenda-se a instalação via nvm)
+## Configuração (ENV)
+Se o projeto usar chaves, APIs ou endpoints, descreva aqui (exemplo):
+```
+VITE_API_URL=https://api.exemplo.com
+VITE_MAPS_KEY=xxxxx
+```
+Informe como criar um arquivo `.env.local` e listar variáveis obrigatórias.
 
-Passos:
+## Contribuindo
+Obrigado por considerar contribuir! Algumas orientações:
+- Abra uma issue descrevendo a proposta antes de iniciar mudanças significativas.
+- Fork → branch com nome `feature/<breve-descrição>` ou `fix/<breve-descrição>`.
+- Testes e lint passando antes do PR.
+- Descreva no PR o que mudou e por quê.
 
-Clone o repositório:
+Sugestões para arquivos adicionais:
+- CONTRIBUTING.md (detalhando processo de PRs)
+- CODE_OF_CONDUCT.md
+- .github/ISSUE_TEMPLATE.md e .github/PULL_REQUEST_TEMPLATE.md
 
-Bash
+## Boas práticas e Acessibilidade
+- Use semântica HTML e roles ARIA onde necessário.
+- Assegure contraste suficiente para leitura.
+- Navegação por teclado e leitor de tela testados nas views principais.
 
-git clone <URL_DO_SEU_REPOSITÓRIO_GIT>
-Navegue até o diretório do projeto:
+## Roadmap (exemplos)
+- [ ] Sistema de anotações e contas (autenticação)
+- [ ] Importação/exportação de coleções
+- [ ] Modos de leitura personalizáveis (colunas, tipografia)
+- [ ] Traduções / internacionalização (i18n)
 
-Bash
+## Troubleshooting
+- Dependências falhando na instalação: verifique a versão do Node e limpe `node_modules` + `package-lock.json`.
+- Erros de CORS ao consumir APIs: configurar proxy ou ajustar servidor.
 
-cd <NOME_DO_SEU_PROJETO>
-Instale as dependências:
+## Licença
+(Adicione a licença do projeto, ex.: MIT)
+```
+MIT © Seu Nome
+```
 
-Bash
+## Contato
+- Autor: shuudesu
+- GitHub: https://github.com/shuudesu
+- Email: (opcional) seu-email@exemplo.com
 
-npm i
-Inicie o servidor de desenvolvimento:
+---
 
-Bash
-
-npm run dev
-Isso iniciará um servidor local com recarregamento automático para uma visualização instantânea das suas alterações.
-
-☁️ Publicação (Deploy)
-Este projeto está configurado para uma publicação simplificada através da plataforma Lovable. Para publicar, acesse a página do projeto e vá em Share -> Publish.
-
-Você também pode conectar um domínio customizado nas configurações do projeto em Project > Settings > Domains.
+Se quiser, posso:
+- Gerar um CONTRIBUTING.md e CODE_OF_CONDUCT.md inicial.
+- Criar templates para issues e PRs.
+- Adicionar badges (CI, npm, license) e instruções de CI (GitHub Actions).
