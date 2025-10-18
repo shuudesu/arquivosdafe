@@ -7,6 +7,7 @@ import { AuthProvider } from "./components/auth/AuthProvider";
 import Library from "./pages/Library";
 import Auth from "./pages/Auth";
 import Admin from "./pages/Admin";
+import Reader from "./pages/Reader";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -22,6 +23,7 @@ const App = () => (
             <Route path="/" element={<Library />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/admin" element={<Admin />} />
+            <Route path="/reader/:bookId" element={<Reader />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </AuthProvider>

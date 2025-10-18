@@ -1,8 +1,9 @@
-import { Download, FileText } from "lucide-react";
+import { Download, FileText, BookOpen } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
 
 interface BookCardProps {
   id: string;
@@ -14,6 +15,12 @@ interface BookCardProps {
 }
 
 export const BookCard = ({ id, title, author, description, filePath, coverUrl }: BookCardProps) => {
+  const navigate = useNavigate();
+
+  const handleRead = () => {
+    navigate(`/reader/${id}`);
+  };
+
   const handleDownload = async () => {
     try {
       // Check rate limit
@@ -88,8 +95,12 @@ export const BookCard = ({ id, title, author, description, filePath, coverUrl }:
           </p>
         </CardContent>
       )}
-      <CardContent className="pt-0">
-        <Button onClick={handleDownload} className="w-full gap-2">
+      <CardContent className="pt-0 space-y-2">
+        <Button onClick={handleRead} className="w-full gap-2" variant="default">
+          <BookOpen className="h-4 w-4" />
+          Ler Online
+        </Button>
+        <Button onClick={handleDownload} className="w-full gap-2" variant="outline">
           <Download className="h-4 w-4" />
           Download PDF
         </Button>
