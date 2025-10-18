@@ -159,21 +159,37 @@ export default function Reader() {
 
       <main className="container py-8">
         <div className="flex flex-col items-center gap-4">
-          <div className="border rounded-lg bg-white shadow-sm overflow-auto max-h-[calc(100vh-200px)]">
+          <div className="relative border rounded-lg bg-white shadow-sm overflow-auto max-h-[calc(100vh-200px)]">
             {pdfUrl && (
-              <Document
-                file={pdfUrl}
-                onLoadSuccess={onDocumentLoadSuccess}
-                loading={<div className="p-8">Carregando PDF...</div>}
-                error={<div className="p-8 text-destructive">Erro ao carregar PDF</div>}
-              >
-                <Page 
-                  pageNumber={pageNumber} 
-                  scale={scale}
-                  renderTextLayer={true}
-                  renderAnnotationLayer={true}
+              <>
+                {/* Left tap area for previous page */}
+                <div 
+                  className="absolute left-0 top-0 bottom-0 w-1/3 z-10 cursor-pointer md:hidden"
+                  onClick={() => setPageNumber(Math.max(1, pageNumber - 1))}
+                  aria-label="Página anterior"
                 />
-              </Document>
+                
+                {/* Right tap area for next page */}
+                <div 
+                  className="absolute right-0 top-0 bottom-0 w-1/3 z-10 cursor-pointer md:hidden"
+                  onClick={() => setPageNumber(Math.min(numPages, pageNumber + 1))}
+                  aria-label="Próxima página"
+                />
+                
+                <Document
+                  file={pdfUrl}
+                  onLoadSuccess={onDocumentLoadSuccess}
+                  loading={<div className="p-8">Carregando PDF...</div>}
+                  error={<div className="p-8 text-destructive">Erro ao carregar PDF</div>}
+                >
+                  <Page 
+                    pageNumber={pageNumber} 
+                    scale={scale}
+                    renderTextLayer={true}
+                    renderAnnotationLayer={true}
+                  />
+                </Document>
+              </>
             )}
           </div>
 
