@@ -51,30 +51,8 @@ export const InstallButton = () => {
     };
   }, [toast]);
 
-  const handleInstallClick = async () => {
-    if (!deferredPrompt) {
-      // No prompt available, show instructions instead
-      setShowInstructions(true);
-      return;
-    }
-
-    try {
-      await deferredPrompt.prompt();
-      const { outcome } = await deferredPrompt.userChoice;
-      
-      if (outcome === "accepted") {
-        setIsInstalled(true);
-        localStorage.setItem("pwa-installed", "true");
-      }
-      
-      setDeferredPrompt(null);
-    } catch (error) {
-      console.error("Error installing PWA:", error);
-      setShowInstructions(true);
-    }
-  };
-
-  const handleInfoClick = () => {
+  const handleInstallClick = () => {
+    // Always show instructions first
     setShowInstructions(true);
   };
 
@@ -84,24 +62,14 @@ export const InstallButton = () => {
 
   return (
     <>
-      <div className="fixed bottom-6 right-6 z-50 flex gap-2">
-        <Button
-          onClick={handleInfoClick}
-          size="icon"
-          variant="outline"
-          className="h-12 w-12 rounded-full shadow-lg border-2 animate-pulse"
-          aria-label="Ver instruções de instalação"
-        >
-          <Info className="h-5 w-5" />
-        </Button>
-        
+      <div className="fixed bottom-6 right-6 z-50">
         <Button
           onClick={handleInstallClick}
           size="lg"
-          className="rounded-full shadow-lg gap-2 pr-6"
-          aria-label="Instalar aplicativo"
+          className="rounded-full shadow-lg gap-2 animate-pulse hover:animate-none"
+          aria-label="Ver como instalar o aplicativo"
         >
-          <Download className="h-5 w-5 animate-bounce" />
+          <Download className="h-5 w-5" />
           <span className="hidden sm:inline">Instalar App</span>
         </Button>
       </div>
@@ -109,6 +77,15 @@ export const InstallButton = () => {
       <InstallInstructions 
         open={showInstructions} 
         onOpenChange={setShowInstructions}
+        deferredPrompt={deferredPrompt}
+        onInstallComplete={() => {
+          setIsInstalled(true);
+          setDeferredPrompt(null);
+          toast({
+            title: "App instalado com sucesso! ✨",
+            description: "Você pode acessar sua biblioteca diretamente da tela inicial.",
+          });
+        }}
       />
     </>
   );

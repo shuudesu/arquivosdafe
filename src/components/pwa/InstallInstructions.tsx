@@ -1,18 +1,26 @@
 import { useState, useEffect } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { Smartphone, Monitor, Share2, MoreVertical, Download, X } from "lucide-react";
+import { Smartphone, Monitor, Share2, MoreVertical, Download } from "lucide-react";
 import { Card } from "@/components/ui/card";
+
+interface BeforeInstallPromptEvent extends Event {
+  prompt: () => Promise<void>;
+  userChoice: Promise<{ outcome: "accepted" | "dismissed" }>;
+}
 
 interface InstallInstructionsProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  deferredPrompt: BeforeInstallPromptEvent | null;
+  onInstallComplete: () => void;
 }
 
 type Platform = "android" | "ios" | "desktop" | "unknown";
 
-export const InstallInstructions = ({ open, onOpenChange }: InstallInstructionsProps) => {
+export const InstallInstructions = ({ open, onOpenChange, deferredPrompt, onInstallComplete }: InstallInstructionsProps) => {
   const [platform, setPlatform] = useState<Platform>("unknown");
+  const [isInstalling, setIsInstalling] = useState(false);
 
   useEffect(() => {
     const userAgent = navigator.userAgent.toLowerCase();
@@ -24,6 +32,25 @@ export const InstallInstructions = ({ open, onOpenChange }: InstallInstructionsP
     else if (isAndroid) setPlatform("android");
     else if (isDesktop) setPlatform("desktop");
   }, []);
+
+  const handleDirectInstall = async () => {
+    if (!deferredPrompt) return;
+    
+    setIsInstalling(true);
+    try {
+      await deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      
+      if (outcome === "accepted") {
+        onInstallComplete();
+        onOpenChange(false);
+      }
+    } catch (error) {
+      console.error("Error installing PWA:", error);
+    } finally {
+      setIsInstalling(false);
+    }
+  };
 
   const renderAndroidInstructions = () => (
     <Card className="p-6 space-y-4">
@@ -148,6 +175,27 @@ export const InstallInstructions = ({ open, onOpenChange }: InstallInstructionsP
         </DialogHeader>
 
         <div className="space-y-6 mt-4">
+          {deferredPrompt && (
+            <Card className="p-4 bg-primary/10 border-primary/20">
+              <div className="flex items-center justify-between gap-4">
+                <div>
+                  <p className="font-semibold text-primary">Instalação Automática Disponível!</p>
+                  <p className="text-sm text-muted-foreground mt-1">
+                    Clique no botão ao lado para instalar o app automaticamente
+                  </p>
+                </div>
+                <Button 
+                  onClick={handleDirectInstall}
+                  disabled={isInstalling}
+                  className="gap-2"
+                >
+                  <Download className="h-4 w-4" />
+                  {isInstalling ? "Instalando..." : "Instalar Agora"}
+                </Button>
+              </div>
+            </Card>
+          )}
+          
           {platform === "android" && renderAndroidInstructions()}
           {platform === "ios" && renderIOSInstructions()}
           {platform === "desktop" && renderDesktopInstructions()}
