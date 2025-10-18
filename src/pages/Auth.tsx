@@ -35,13 +35,9 @@ export default function Auth() {
 
   const validateInviteToken = async (token: string) => {
     try {
-      const { data, error } = await supabase
-        .from("invite_links")
-        .select("*")
-        .eq("token", token)
-        .is("used_at", null)
-        .gt("expires_at", new Date().toISOString())
-        .maybeSingle();
+      const { data, error } = await supabase.rpc("validate_invite_token", {
+        _token: token,
+      });
 
       if (error || !data) {
         toast.error("Link de convite inválido ou expirado");
@@ -90,13 +86,14 @@ export default function Auth() {
         if (signUpError) throw signUpError;
 
         if (authData.user) {
-          await supabase
-            .from("invite_links")
-            .update({
-              used_by: authData.user.id,
-              used_at: new Date().toISOString(),
-            })
-            .eq("token", token);
+          const { error: markError } = await supabase.rpc("mark_invite_used", {
+            _token: token,
+            _user_id: authData.user.id,
+          });
+
+          if (markError) {
+            console.error("Erro ao marcar convite como usado:", markError);
+          }
 
           toast.success("Cadastro realizado com sucesso!");
           navigate("/");
