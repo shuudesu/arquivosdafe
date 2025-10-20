@@ -66,11 +66,11 @@ export const InstallButton = () => {
         <Button
           onClick={handleInstallClick}
           size="lg"
-          className="rounded-full shadow-lg gap-2 animate-pulse hover:animate-none"
-          aria-label="Ver como instalar o aplicativo"
+          className="rounded-full shadow-lg gap-2 animate-pulse hover:animate-none px-6"
+          aria-label="Faça o Download do APP"
         >
           <Download className="h-5 w-5" />
-          <span className="hidden sm:inline">Instalar App</span>
+          <span>Faça o Download do APP</span>
         </Button>
       </div>
 
