@@ -36,7 +36,7 @@ const bookUploadSchema = z.object({
   description: z.string().trim().max(2000, "Descrição muito longa").optional(),
 });
 
-const MAX_PDF_SIZE = 50 * 1024 * 1024; // 50MB
+const MAX_PDF_SIZE = 100 * 1024 * 1024; // 100MB
 const MAX_IMAGE_SIZE = 5 * 1024 * 1024; // 5MB
 
 interface Book {
@@ -152,7 +152,7 @@ export default function Admin() {
     }
 
     if (pdfFile.size > MAX_PDF_SIZE) {
-      toast.error("Arquivo PDF muito grande (máximo 50MB)");
+      toast.error("Arquivo PDF muito grande (máximo 100MB)");
       return;
     }
 
