@@ -62,15 +62,16 @@ export const InstallButton = () => {
 
   return (
     <>
-      <div className="fixed bottom-8 right-8 z-50">
+      <div className="fixed bottom-4 right-4 sm:bottom-8 sm:right-8 z-50">
         <Button
           onClick={handleInstallClick}
           size="lg"
-          className="h-14 gap-2 px-6 shadow-elegant hover:shadow-glow animate-fade-in"
+          className="h-12 sm:h-14 gap-2 px-4 sm:px-6 shadow-elegant hover:shadow-glow animate-fade-in"
           aria-label="Faça o Download do APP"
         >
           <Download className="h-5 w-5" />
-          <span className="font-semibold">Faça o Download do APP</span>
+          <span className="font-semibold hidden sm:inline">Faça o Download do APP</span>
+          <span className="font-semibold sm:hidden">Download APP</span>
         </Button>
       </div>
 
