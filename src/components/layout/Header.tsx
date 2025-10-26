@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { useAuth } from "@/components/auth/AuthProvider";
 import { useNavigate } from "react-router-dom";
 
-export const Header = () => {
+const Header = () => {
   const { user, isAdmin, signOut } = useAuth();
   const navigate = useNavigate();
 
@@ -54,3 +54,6 @@ export const Header = () => {
     </header>
   );
 };
+
+export { Header };
+export default Header;
