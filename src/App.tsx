@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./components/auth/AuthProvider";
 import { InstallButton } from "./components/pwa/InstallButton";
+import { FloatingChatButton } from "./components/chat/FloatingChatButton";
 import Library from "./pages/Library";
 import Auth from "./pages/Auth";
 import Admin from "./pages/Admin";
@@ -29,6 +30,7 @@ const App = () => (
             <Route path="/chat-biblico" element={<ChatBiblico />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
+          <FloatingChatButton />
           <InstallButton />
         </AuthProvider>
       </BrowserRouter>

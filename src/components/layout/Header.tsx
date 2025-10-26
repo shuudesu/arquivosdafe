@@ -1,4 +1,4 @@
-import { BookOpen, LogOut, Shield, MessageSquare } from "lucide-react";
+import { BookOpen, LogOut, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/components/auth/AuthProvider";
 import { useNavigate } from "react-router-dom";
@@ -19,15 +19,6 @@ const Header = () => {
         
         {user && (
           <div className="flex items-center gap-4">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => navigate("/chat-biblico")}
-              className="gap-2"
-            >
-              <MessageSquare className="h-4 w-4" />
-              Chat Bíblico
-            </Button>
             {isAdmin && (
               <Button
                 variant="outline"
