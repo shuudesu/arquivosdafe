@@ -1,1 +1,4 @@
 project_id = "gtpnssjocllphimhkwdh"
+
+[functions.chat-biblico]
+verify_jwt = false
