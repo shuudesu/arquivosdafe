@@ -173,6 +173,7 @@ export type Database = {
         Args: { _book_id: string; _user_id: string }
         Returns: boolean
       }
+      cleanup_old_download_logs: { Args: never; Returns: undefined }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
@@ -184,10 +185,7 @@ export type Database = {
         Args: { _token: string; _user_id: string }
         Returns: boolean
       }
-      validate_invite_token: {
-        Args: { _token: string }
-        Returns: boolean
-      }
+      validate_invite_token: { Args: { _token: string }; Returns: boolean }
     }
     Enums: {
       app_role: "admin" | "user"
