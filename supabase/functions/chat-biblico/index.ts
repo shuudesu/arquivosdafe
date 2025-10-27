@@ -9,7 +9,67 @@ serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
 
   try {
-    const { messages } = await req.json();
+    const body = await req.json();
+    const { messages } = body;
+
+    // Input validation
+    if (!messages || !Array.isArray(messages)) {
+      console.error("Invalid messages format");
+      return new Response(
+        JSON.stringify({ error: "Invalid messages format. Expected an array." }),
+        { 
+          status: 400, 
+          headers: { ...corsHeaders, "Content-Type": "application/json" } 
+        }
+      );
+    }
+
+    if (messages.length === 0 || messages.length > 50) {
+      console.error("Invalid messages count:", messages.length);
+      return new Response(
+        JSON.stringify({ error: "Messages count must be between 1 and 50." }),
+        { 
+          status: 400, 
+          headers: { ...corsHeaders, "Content-Type": "application/json" } 
+        }
+      );
+    }
+
+    // Validate each message structure and content
+    for (const msg of messages) {
+      if (!msg.role || !msg.content) {
+        console.error("Invalid message structure:", msg);
+        return new Response(
+          JSON.stringify({ error: "Each message must have 'role' and 'content' properties." }),
+          { 
+            status: 400, 
+            headers: { ...corsHeaders, "Content-Type": "application/json" } 
+          }
+        );
+      }
+
+      if (typeof msg.content !== "string" || msg.content.length > 10000) {
+        console.error("Message content too long or invalid:", msg.content?.length);
+        return new Response(
+          JSON.stringify({ error: "Message content must be a string with maximum 10,000 characters." }),
+          { 
+            status: 400, 
+            headers: { ...corsHeaders, "Content-Type": "application/json" } 
+          }
+        );
+      }
+
+      if (!["user", "assistant", "system"].includes(msg.role)) {
+        console.error("Invalid message role:", msg.role);
+        return new Response(
+          JSON.stringify({ error: "Message role must be 'user', 'assistant', or 'system'." }),
+          { 
+            status: 400, 
+            headers: { ...corsHeaders, "Content-Type": "application/json" } 
+          }
+        );
+      }
+    }
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     if (!LOVABLE_API_KEY) throw new Error("LOVABLE_API_KEY is not configured");
 
